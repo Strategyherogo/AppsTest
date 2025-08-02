@@ -1,0 +1,15 @@
+services:
+  - type: worker
+    name: slack-mention-tracker
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python src/mention_tracker.py
+    envVars:
+      - key: SLACK_BOT_TOKEN
+        sync: false
+      - key: SLACK_APP_TOKEN
+        sync: false
+      - key: SLACK_SIGNING_SECRET
+        sync: false
+      - key: USE_SIMPLE_ANALYZER
+        value: "True"

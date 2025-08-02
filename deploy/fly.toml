@@ -1,0 +1,16 @@
+# fly.toml for Fly.io deployment
+app = "slack-mention-tracker"
+primary_region = "iad"
+
+[build]
+  builder = "paketobuildpacks/builder:base"
+  buildpacks = ["gcr.io/paketo-buildpacks/python"]
+
+[env]
+  USE_SIMPLE_ANALYZER = "True"
+
+[processes]
+  app = "python src/mention_tracker.py"
+
+# No HTTP service needed for Socket Mode bot
+[checks]
