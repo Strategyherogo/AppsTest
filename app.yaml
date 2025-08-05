@@ -1,0 +1,29 @@
+name: slack-task-bot
+region: fra
+services:
+- name: bot
+  github:
+    repo: Strategyherogo/AppsTest
+    branch: main
+    deploy_on_push: true
+  build_command: pip install -r requirements.txt
+  run_command: python src/mention_tracker.py
+  environment_slug: python
+  instance_size_slug: basic-xxs
+  instance_count: 1
+  envs:
+  - key: SLACK_BOT_TOKEN
+    scope: RUN_TIME
+    type: SECRET
+  - key: SLACK_APP_TOKEN
+    scope: RUN_TIME
+    type: SECRET
+  - key: SLACK_SIGNING_SECRET
+    scope: RUN_TIME
+    type: SECRET
+  - key: USE_SIMPLE_ANALYZER
+    scope: RUN_TIME
+    value: "True"
+  - key: PYTHON_VERSION
+    scope: BUILD_TIME
+    value: "3.11"
